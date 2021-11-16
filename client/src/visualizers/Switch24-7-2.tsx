@@ -10,8 +10,7 @@ type NoteVisual = {
     y: number,
     color: P5.Color,
     diameter: number,
-    decay: number,
-    analyzerValues: Float32Array | Float32Array[]
+    decay: number
 };
 
 let noteVisuals: NoteVisual[] = [];
@@ -45,11 +44,15 @@ export const ColorSplashVisualizer = new Visualizer(
             const x = Math.floor(Math.random() * width);
             const y = Math.floor(Math.random() * height);
             const c = colors[Math.floor(Math.random() * colors.length)];
+            const analyzerValues: number[] = [];
             let maxAmplitude: number = 0;
 
             values.forEach((value) => {
-                if (typeof value === 'number' && value > maxAmplitude) {
-                    maxAmplitude = value;
+                if (typeof value === 'number') {
+                    analyzerValues.push(value);
+                    if (value > maxAmplitude) {
+                        maxAmplitude = value;
+                    }
                 }
             })
 
@@ -73,8 +76,7 @@ export const ColorSplashVisualizer = new Visualizer(
                 y: y,
                 color: c,
                 diameter: maxAmplitude * 1000,
-                decay: maxAmplitude,
-                analyzerValues: values
+                decay: maxAmplitude
             });
         }
 
@@ -84,15 +86,14 @@ export const ColorSplashVisualizer = new Visualizer(
             noteVisual.decay += 0.1;
             if (noteVisual.diameter > 0) {
                 const radius = noteVisual.diameter / 2;
-                const analyzerValues = noteVisual.analyzerValues;
 
                 p5.stroke(p5.color(255, 255, 255, 255));
                 p5.strokeWeight(4);
                 p5.fill(noteVisual.color);
                 p5.beginShape();
                 for (let angle = 0; angle <= 360; angle++) {
-                    const valuesIndex = Math.floor(angle * analyzerValues.length / 360);
-                    let amplitude = analyzerValues[valuesIndex] as number;
+                    const valuesIndex = Math.floor(angle * values.length / 360);
+                    let amplitude = values[valuesIndex] as number;
                     let amp = p5.map(amplitude, -1, 1, -50, 50);
 
                     let myX = ((radius + amp) * p5.cos(angle)) + noteVisual.x;
