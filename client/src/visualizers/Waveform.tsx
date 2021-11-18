@@ -1,5 +1,6 @@
 // 3rd party library imports
 import P5 from 'p5';
+import { stringify } from 'querystring';
 import * as Tone from 'tone';
 
 // project imports
@@ -20,12 +21,12 @@ export const WaveformVisualizer = new Visualizer(
     p5.noFill();
 
     const values = analyzer.getValue();
+    
     p5.beginShape();
     for (let i = 0; i < values.length; i++) {
       const amplitude = values[i] as number;
       const x = p5.map(i, 0, values.length - 1, 0, width);
       const y = height / 2 + amplitude * height;
-      // Place vertex
       p5.vertex(x, y);
     }
     p5.endShape();

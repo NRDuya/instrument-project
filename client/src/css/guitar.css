@@ -1,0 +1,169 @@
+.guitar-head{
+    background-color: #97552C;
+    background-image: url("../assets/img/wood.jpg");
+    background-position: center;
+    height: 100%;
+    width: 7rem;
+    box-shadow: 0px 7px 2px rgba(0, 0, 0, 0.4);
+    overflow: visible;
+}
+
+.guitar-nut{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    background: #e0e0e0;
+    background: linear-gradient(90deg, rgba(149,149,149,1) 0%, rgba(255,255,255,1) 100%);
+    height: 90%;
+    width: 1rem;
+    box-shadow: 0px 7px 2px rgba(0, 0, 0, 0.4);
+}
+
+.guitar-fret{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    width: 4.5rem;
+    height: 90%;
+    background-color: #C07D2C;
+    background-image: url("../assets/img/dark-wood.jpg");
+    background-position: center;
+    border-right: 0.2rem solid #cfcfcf;
+    border-top: 0.2rem solid #edebc5;
+    border-bottom: 0.2rem solid #edebc5;
+    position: relative;
+    box-shadow: 0px 7px 2px rgba(0, 0, 0, 0.4);
+}
+
+.guitar-neck{
+    display: flex;
+    height: 15rem;
+    padding: 0;
+    overflow: hidden;
+}
+
+.guitar-neck ul{
+    display: flex;
+    align-items: center;
+    margin: 0;
+    padding: 0;
+}
+
+.guitar-strings{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: absolute;
+    width: 100%;
+    height: 13.5rem; /* 90% of .guitar-neck height: (15rem * 90%) = 13.5rem */
+    z-index: 1;
+}
+
+.guitar-strings li{
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
+
+.single-fret-mark{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1rem;
+    height: 1rem;
+    background: whitesmoke;
+    border-radius: 100%;
+}
+
+.double-fret-mark{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    position: absolute;
+    width: 100%;
+    height: 75%;
+}
+
+.double-fret-mark span{
+    width: 1rem;
+    height: 1rem;
+    background: whitesmoke;
+    border-radius: 100%;
+}
+
+.string{
+    flex-grow: 1;
+    background-color: #bdab99;
+    box-shadow: 0px 7px 2px rgba(0, 0, 0, 0.4);
+}
+
+.first-string{
+    height: 0.25rem;
+    background-image: repeating-linear-gradient(80deg,#5e5e5e, 	#b8b8b8 .15rem, transparent .2rem),
+        linear-gradient(#bababa, #000000);
+}
+
+.second-string{
+    height: 0.27rem;
+    background-image: repeating-linear-gradient(80deg,#5e5e5e, 	#b8b8b8 .15rem, transparent .2rem),
+        linear-gradient(#bababa, #000000);
+}
+
+.third-string{
+    height: 0.3rem;
+    background-image: repeating-linear-gradient(80deg,#5e5e5e, 	#EEE8AA .15rem, transparent .2rem),
+        linear-gradient(#bababa, #000000);
+}
+
+.fourth-string{
+    height: 0.35rem;
+    background-image: repeating-linear-gradient(80deg,#5e5e5e, 	#EEE8AA .15rem, transparent .2rem),
+        linear-gradient(#bababa, #000000);
+}
+
+.fifth-string{
+    height: 0.37rem;
+    background-image: repeating-linear-gradient(80deg,#5e5e5e, 	#EEE8AA .15rem, transparent .2rem),
+        linear-gradient(#bababa, #000000);
+}
+
+.sixth-string{
+    height: 0.4rem;
+    background-image: repeating-linear-gradient(80deg,#5e5e5e, 	#EEE8AA .15rem, transparent .2rem),
+        linear-gradient(#bababa, #000000);
+}
+
+.note{
+    font-size: 1rem;
+    font-weight: bold;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 16%;
+    z-index: 2;
+    cursor: pointer;
+    opacity: 0;
+    transition: opacity 0.3s ease-out;
+    -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+    -khtml-user-select: none; /* Konqueror HTML */
+    -moz-user-select: none; /* Old versions of Firefox */
+    -ms-user-select: none; /* Internet Explorer/Edge */
+    user-select: none; /* Non-prefixed version, currently
+                        supported by Chrome, Edge, Opera and Firefox */
+}
+
+.note:hover{
+    opacity: 1;
+}
+
+.open-note{
+    font-size: 1.5rem !important;
+    color: black !important;
+}
