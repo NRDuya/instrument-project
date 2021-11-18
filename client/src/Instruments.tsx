@@ -85,7 +85,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       };
     }
 
-    return () => {};
+    return () => { };
   }, [notes, synth, dispatch]);
 
   return (
