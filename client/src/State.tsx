@@ -3,6 +3,7 @@ import { List, Map } from 'immutable';
 
 // project dependencies
 import { PianoInstrument } from './instruments/Piano';
+//import { WaveformVisualizer } from './visualizers/ahuang9-3';
 import { WaveformVisualizer } from './visualizers/Waveform';
 import { GuitarInstrument } from './instruments/Switch24-7-2';
 import { ColorSplashVisualizer } from './visualizers/Switch24-7-2';
