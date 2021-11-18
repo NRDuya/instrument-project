@@ -5,7 +5,7 @@ import { List, Map } from 'immutable';
 import { PianoInstrument } from './instruments/Piano';
 import { WaveformVisualizer } from './visualizers/Waveform';
 import { NRDuya } from './visualizers/NRDuya-2'; 
-import { XylophoneInstrument } from './instruments/Xylophone';
+import { XylophoneInstrument } from './instruments/NRDuya-2';
 
 /** ------------------------------------------------------------------------ **
  * The entire application state is stored in AppState.
