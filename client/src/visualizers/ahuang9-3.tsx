@@ -6,8 +6,8 @@ import * as Tone from 'tone';
 import { Visualizer } from '../Visualizers';
 
 
-export const WaveformVisualizer = new Visualizer(
-  'Waveform',
+export const TwoDimensionalVisualizer = new Visualizer(
+  'Two Dimensional Shape',
   (p5: P5, analyzer: Tone.Analyser) => {
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
@@ -21,7 +21,7 @@ export const WaveformVisualizer = new Visualizer(
 
 
     p5.angleMode('degrees');    // Changes from radius to degrees
-    p5.translate(width / 2, height /2);   // Centers the circle
+    p5.translate(width / 2, height / 2);   // Centers the circle
 
     const values = analyzer.getValue();
     p5.beginShape();
