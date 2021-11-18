@@ -16,6 +16,8 @@ export interface InstrumentProps {
   name: string;
   synth: Tone.Synth;
   setSynth: (f: (oldSynth: Tone.Synth) => Tone.Synth) => void;
+  guitarSample: Tone.Sampler;
+  setGuitarSample: (f: (oldSynth: Tone.Sampler) => Tone.Sampler) => void;
 }
 
 export class Instrument {
@@ -57,6 +59,22 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       oscillator: { type: 'sine' } as Tone.OmniOscillatorOptions,
     }).toDestination(),
   );
+  const [guitarSample, setGuitarSample] = useState(
+    new Tone.Sampler({
+      urls: {
+        A2: "A2.mp3",
+        E2: "E2.mp3",
+        B3: "B3.mp3",
+        D3: "D3.mp3",
+        E3: "E3.mp3",
+        G3: "G3.mp3",
+      },
+      baseUrl: "./assets/samples/guitar/",
+      onload: () => {
+        console.log("Guitar samples loaded!");
+      }
+    }).toDestination(),
+  );
 
   const notes = state.get('notes');
 
@@ -85,8 +103,33 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       };
     }
 
+    else if (notes && guitarSample) {
+      let eachNote = notes.split(' ');
+      let noteObjs = eachNote.map((note: string, idx: number) => ({
+        idx,
+        time: `+${idx / 4}`,
+        note,
+        velocity: 1,
+      }));
+
+      new Tone.Part((time, value) => {
+        // the value is an object which contains both the note and the velocity
+        guitarSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
+        if (value.idx === eachNote.length - 1) {
+          dispatch(new DispatchAction('STOP_SONG'));
+        }
+      }, noteObjs).start(0);
+
+      Tone.Transport.start();
+
+      return () => {
+        Tone.Transport.cancel();
+      };
+    }
+
     return () => { };
-  }, [notes, synth, dispatch]);
+  }, [notes, synth, guitarSample, dispatch]);
+
 
   return (
     <div>
@@ -101,6 +144,8 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
           dispatch={dispatch}
           synth={synth}
           setSynth={setSynth}
+          guitarSample={guitarSample}
+          setGuitarSample={setGuitarSample}
         />
       </div>
     </div>

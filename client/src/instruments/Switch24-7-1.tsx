@@ -1,27 +1,12 @@
 // 3rd party library imports
 import * as Tone from 'tone';
-import classNames from 'classnames';
 import { List } from 'immutable';
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 import '../css/guitar.css';
 
-function GuitarType({ title, onClick, active }: any): JSX.Element {
-    return (
-        <div
-            onClick={onClick}
-            className={classNames('dim pointer ph2 pv1 ba mr2 br1 fw7 bw1', {
-                'b--black black': active,
-                'gray b--light-gray': !active,
-            })}
-        >
-            {title}
-        </div>
-    );
-}
-
-function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
+function Guitar({ guitarSample }: InstrumentProps): JSX.Element {
     const frets = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     const openFretNotes = List([
         { note: 'E', octave: '4' },
@@ -31,29 +16,6 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
         { note: 'A', octave: '2' },
         { note: 'E', octave: '2' },
     ]);
-
-    const setOscillator = (newType: Tone.ToneOscillatorType) => {
-        setSynth(oldSynth => {
-            oldSynth.disconnect();
-
-            return new Tone.Synth({
-                oscillator: { type: newType } as Tone.OmniOscillatorOptions
-            }).toDestination();
-        });
-    };
-
-    const oscillators: List<OscillatorType> = List([
-        'sine',
-        'sawtooth',
-        'square',
-        'triangle',
-        'fmsine',
-        'fmsawtooth',
-        'fmtriangle',
-        'amsine',
-        'amsawtooth',
-        'amtriangle',
-    ]) as List<OscillatorType>;
 
     return (
         <div className="pv4">
@@ -66,8 +28,8 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
                             return (
                                 <span
                                     key={note}
-                                    onMouseDown={(e) => synth?.triggerAttack(`${note}`)}
-                                    onMouseUp={(e) => synth?.triggerRelease(`+0.25`)}
+                                    onMouseDown={(e) => guitarSample?.triggerAttack(`${note}`)}
+                                    onMouseUp={(e) => guitarSample?.triggerRelease(`+0.25`)}
                                     className={'note open-note'}
                                 >
                                     {note}
@@ -94,8 +56,8 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
                                     return (
                                         <span
                                             key={note}
-                                            onMouseDown={() => synth?.triggerAttack(`${note}`)}
-                                            onMouseUp={() => synth?.triggerRelease(`+0.25`)}
+                                            onMouseDown={() => guitarSample?.triggerAttack(`${note}`)}
+                                            onMouseUp={() => guitarSample?.triggerRelease(`+0.25`)}
                                             className={'note'}
                                         >
                                             {note}
@@ -127,16 +89,6 @@ function Guitar({ synth, setSynth }: InstrumentProps): JSX.Element {
                     </ul>
                 </ul>
             </div>
-            <div className={'pl4 pt4 flex'}>
-                {oscillators.map(o => (
-                    <GuitarType
-                        key={o}
-                        title={o}
-                        onClick={() => setOscillator(o)}
-                        active={synth?.oscillator.type === o}
-                    />
-                ))}
-            </div>
         </div>
     );
 }
@@ -167,6 +119,7 @@ function transpose(note: string, octave: string, halfsteps: number): string {
     for (let i = 0; i < notes.length; i++) {
         if (notes[i] === note) {
             index = i;
+            break;
         }
     }
 
