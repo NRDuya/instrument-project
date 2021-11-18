@@ -3,7 +3,7 @@ import { List, Map } from 'immutable';
 
 // project dependencies
 import { PianoInstrument } from './instruments/Piano';
-import { WaveformVisualizer } from './visualizers/Waveform';
+import { WaveformVisualizer } from './visualizers/ahuang9-3';
 
 /** ------------------------------------------------------------------------ **
  * The entire application state is stored in AppState.
