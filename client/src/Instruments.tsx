@@ -17,7 +17,7 @@ export interface InstrumentProps {
   synth: Tone.Synth;
   setSynth: (f: (oldSynth: Tone.Synth) => Tone.Synth) => void;
   guitarSample: Tone.Sampler;
-  setGuitarSample: (f: (oldSynth: Tone.Sampler) => Tone.Sampler) => void;
+  xylophoneSample: Tone.Sampler;
 }
 
 export class Instrument {
@@ -59,7 +59,8 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       oscillator: { type: 'sine' } as Tone.OmniOscillatorOptions,
     }).toDestination(),
   );
-  const [guitarSample, setGuitarSample] = useState(
+
+  const [guitarSample] = useState(
     new Tone.Sampler({
       urls: {
         A2: "A2.mp3",
@@ -72,6 +73,25 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       baseUrl: "./assets/samples/guitar/",
       onload: () => {
         console.log("Guitar samples loaded!");
+      }
+    }).toDestination(),
+  );
+
+  const [xylophoneSample] = useState(
+    new Tone.Sampler({
+      urls: {
+        A1: "A1.mp3",
+        B1: "B1.mp3",
+        C1: "C1.mp3",
+        C2: "C2.mp3",
+        D1: "D1.mp3",
+        E1: "E1.mp3",
+        F1: "F1.mp3",
+        G1: "G1.mp3",
+      },
+      baseUrl: "./assets/samples/xylophone/",
+      onload: () => {
+        console.log("Xylophone samples loaded!");
       }
     }).toDestination(),
   );
@@ -103,7 +123,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       };
     }
 
-    else if (notes && guitarSample) {
+    else if (notes && (guitarSample || xylophoneSample)) {
       let eachNote = notes.split(' ');
       let noteObjs = eachNote.map((note: string, idx: number) => ({
         idx,
@@ -128,7 +148,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
     }
 
     return () => { };
-  }, [notes, synth, guitarSample, dispatch]);
+  }, [notes, synth, guitarSample, xylophoneSample, dispatch]);
 
 
   return (
@@ -145,7 +165,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
           synth={synth}
           setSynth={setSynth}
           guitarSample={guitarSample}
-          setGuitarSample={setGuitarSample}
+          xylophoneSample={xylophoneSample}
         />
       </div>
     </div>
