@@ -1,11 +1,11 @@
 // 3rd party library imports
 import * as Tone from 'tone';
-import classNames from 'classnames';
 import { List } from 'immutable';
-import React from 'react';
 
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';
+import '../css/xylophone.css';
+
 interface XylophoneKeyProps {
     note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
     duration?: string;
@@ -22,15 +22,13 @@ export function XylophoneKey({
       <div
         onMouseDown={() => xylophoneSample?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
         onMouseUp={() => xylophoneSample?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
-        className={classNames('ba pointer absolute dim', 'black bg-white h4')}
+        className="xylophoneKey"
         style={{
             left: `${index * 2}rem`,
-            borderRadius: '5px',
-            height: `${200 - (15 * index)}px`,
-            padding: '.75rem',
-            marginRight: '1rem'
+            height: `${250 - (15 * index)}px`,
         }}
       >
+        {note}
       </div>
     );
   }
@@ -49,7 +47,7 @@ function Xylophone({ xylophoneSample }: InstrumentProps): JSX.Element {
 
     return (
     <div className="pv4">
-        <div className="relative dib h4 w-100 ml4">
+        <div className="xylophone">
         {
             keys.map(key => {
             const note = `${key.note}`;
