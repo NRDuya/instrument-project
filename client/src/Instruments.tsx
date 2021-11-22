@@ -18,6 +18,8 @@ export interface InstrumentProps {
   setSynth: (f: (oldSynth: Tone.Synth) => Tone.Synth) => void;
   guitarSample: Tone.Sampler;
   setGuitarSample: (f: (oldSynth: Tone.Sampler) => Tone.Sampler) => void;
+  drumsetSample: Tone.Sampler;
+  setDrumsetSample: (f: (oldSynth: Tone.Sampler) => Tone.Sampler) => void;
 }
 
 export class Instrument {
@@ -76,6 +78,24 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
     }).toDestination(),
   );
 
+  const [drumsetSample, setDrumsetSample] = useState(
+    new Tone.Sampler({
+      urls: {
+        A1: "snare-drum.mp3",
+        B1: "tom-drum-1.mp3",
+        C1: "tom-drum-2.mp3",
+        D1: "tom-drum-3.mp3",
+        E1: "kick-drum.mp3",
+        F1: "hi-hat-cymbal.mp3",
+        G1: "crash-cymbal.mp3",
+        A2: "ride-cymbal.mp3",
+      },
+      baseUrl: "./assets/samples/drumset/",
+      onload: () => {
+      }
+    }).toDestination(),
+  );
+
   const notes = state.get('notes');
 
   useEffect(() => {
@@ -103,7 +123,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       };
     }
 
-    else if (notes && guitarSample) {
+    else if (notes && guitarSample && drumsetSample) {
       let eachNote = notes.split(' ');
       let noteObjs = eachNote.map((note: string, idx: number) => ({
         idx,
@@ -115,6 +135,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       new Tone.Part((time, value) => {
         // the value is an object which contains both the note and the velocity
         guitarSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
+        drumsetSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
         if (value.idx === eachNote.length - 1) {
           dispatch(new DispatchAction('STOP_SONG'));
         }
@@ -128,7 +149,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
     }
 
     return () => { };
-  }, [notes, synth, guitarSample, dispatch]);
+  }, [notes, synth, guitarSample, drumsetSample, dispatch]);
 
 
   return (
@@ -146,6 +167,8 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
           setSynth={setSynth}
           guitarSample={guitarSample}
           setGuitarSample={setGuitarSample}
+          drumsetSample={drumsetSample}
+          setDrumsetSample={setDrumsetSample}
         />
       </div>
     </div>

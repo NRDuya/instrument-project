@@ -1,0 +1,79 @@
+.container {
+    height: 420px;
+    width: 810px;
+    margin-left: auto;
+    margin-right: auto;
+}
+.drumset{
+    background-image: url("../assets/img/drumset.PNG");
+    height: 100%;
+    width: 100%;
+    background-size: contain;
+}
+.first-cymbal {
+    position: absolute;
+    height: 200px;
+    width: 200px;
+    border-radius: 50%;
+    /* border: .5rem solid black; */
+    transform: translate3d(77px, 20px, 0);
+    z-index: 1;
+}
+.second-cymbal {
+    position: absolute;
+    height: 180px;
+    width: 180px;
+    border-radius: 50%;
+    /* border: .5rem solid black; */
+    transform: translate3d(43px, 234px, 0);
+    z-index: 1;
+}
+.third-cymbal {
+    position: absolute;
+    height: 219px;
+    width: 219px;
+    border-radius: 50%;
+    /* border: .5rem solid black; */
+    transform: translate3d(535px, 0, 0);
+    z-index: 1;
+}
+.first-drum {
+    position: absolute;
+    height: 215px;
+    width: 215px;
+    border-radius: 50%;
+    /* border: .5rem solid black; */
+    transform: translate3d(542px, 190px, 0);
+}
+.second-drum {
+    position: absolute;
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    /* border: .5rem solid black; */
+    transform: translate3d(410px, 50px, 0);
+}
+.third-drum {
+    position: absolute;
+    height: 160px;
+    width: 160px;
+    border-radius: 50%;
+    /* border: .5rem solid black; */
+    transform: translate3d(250px, 50px, 0);
+}
+.fourth-drum {
+    position: absolute;
+    height: 175px;
+    width: 175px;
+    border-radius: 50%;
+    /* border: .5rem solid black; */
+    transform: translate3d(160px, 190px, 0);
+}
+.kick-drum {
+    position: absolute;
+    height: 175px;
+    width: 50px;
+    /* border: .5rem solid black; */
+    transform: translate3d(385px, 210px, 0);
+
+}
