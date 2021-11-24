@@ -33,30 +33,25 @@ export class DB {
     }
   }
 
-  private static async cleanupDB(): Promise<void> {}
+  private static async cleanupDB(): Promise<void> { }
 
   private static async initializeDB(): Promise<Database> {
-    const existsAlready = await DB.exists();
     const db = new sqlite3.Database(DB.DB_PATH);
 
-    if (!existsAlready && !this.hasInitialized) {
-      // We can do this because TypeScript is single-threaded and guaranteed
-      // not to put us back into a wait queue if we don't await.
-      DB.hasInitialized = true;
+    // We can do this because TypeScript is single-threaded and guaranteed
+    // not to put us back into a wait queue if we don't await.
+    DB.hasInitialized = true;
 
-      const schema = await slurp('schema');
-      return new Promise((resolve, reject) =>
-        db.exec(schema, err => {
-          if (err) {
-            reject(err);
-          } else {
-            resolve(db);
-          }
-        }),
-      );
-    }
-
-    return db;
+    const schema = await slurp('schema');
+    return new Promise((resolve, reject) =>
+      db.exec(schema, err => {
+        if (err) {
+          reject(err);
+        } else {
+          resolve(db);
+        }
+      }),
+    );
   }
 
   private static async getDB(): Promise<Database> {

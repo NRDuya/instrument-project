@@ -116,7 +116,55 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
   const notes = state.get('notes');
 
   useEffect(() => {
-    if (notes && synth) {
+    if (instrument.name === 'Guitar' && notes && guitarSample) {
+      let eachNote = notes.split(' ');
+      let noteObjs = eachNote.map((note: string, idx: number) => ({
+        idx,
+        time: `+${idx / 4}`,
+        note,
+        velocity: 1,
+      }));
+
+      new Tone.Part((time, value) => {
+        // the value is an object which contains both the note and the velocity
+        guitarSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
+        if (value.idx === eachNote.length - 1) {
+          dispatch(new DispatchAction('STOP_SONG'));
+        }
+      }, noteObjs).start(0);
+
+      Tone.Transport.start();
+
+      return () => {
+        Tone.Transport.cancel();
+      };
+    }
+
+    else if (instrument.name === 'Xylophone' && notes && xylophoneSample) {
+      let eachNote = notes.split(' ');
+      let noteObjs = eachNote.map((note: string, idx: number) => ({
+        idx,
+        time: `+${idx / 4}`,
+        note,
+        velocity: 1,
+      }));
+
+      new Tone.Part((time, value) => {
+        // the value is an object which contains both the note and the velocity
+        xylophoneSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
+        if (value.idx === eachNote.length - 1) {
+          dispatch(new DispatchAction('STOP_SONG'));
+        }
+      }, noteObjs).start(0);
+
+      Tone.Transport.start();
+
+      return () => {
+        Tone.Transport.cancel();
+      };
+    }
+
+    else if (notes && synth) {
       let eachNote = notes.split(' ');
       let noteObjs = eachNote.map((note: string, idx: number) => ({
         idx,
@@ -139,58 +187,8 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
         Tone.Transport.cancel();
       };
     }
-
-    if (notes && guitarSample && drumsetSample) {
-      let eachNote = notes.split(' ');
-      let noteObjs = eachNote.map((note: string, idx: number) => ({
-        idx,
-        time: `+${idx / 4}`,
-        note,
-        velocity: 1,
-      }));
-
-      new Tone.Part((time, value) => {
-        // the value is an object which contains both the note and the velocity
-        guitarSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
-        drumsetSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
-        if (value.idx === eachNote.length - 1) {
-          dispatch(new DispatchAction('STOP_SONG'));
-        }
-      }, noteObjs).start(0);
-
-      Tone.Transport.start();
-
-      return () => {
-        Tone.Transport.cancel();
-      };
-    }
-    if (notes && (guitarSample || xylophoneSample)) {
-      let eachNote = notes.split(' ');
-      let noteObjs = eachNote.map((note: string, idx: number) => ({
-        idx,
-        time: `+${idx / 4}`,
-        note,
-        velocity: 1,
-      }));
-
-      new Tone.Part((time, value) => {
-        // the value is an object which contains both the note and the velocity
-        guitarSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
-        drumsetSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
-        if (value.idx === eachNote.length - 1) {
-          dispatch(new DispatchAction('STOP_SONG'));
-        }
-      }, noteObjs).start(0);
-
-      Tone.Transport.start();
-
-      return () => {
-        Tone.Transport.cancel();
-      };
-    }
-
     return () => { };
-  }, [notes, synth, guitarSample, drumsetSample, xylophoneSample, dispatch]);
+  }, [notes, synth, guitarSample, drumsetSample, xylophoneSample, dispatch, instrument.name]);
 
 
   return (

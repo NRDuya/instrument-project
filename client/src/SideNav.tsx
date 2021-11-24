@@ -114,8 +114,23 @@ function Songs({ state, dispatch }: SideNavProps): JSX.Element {
             dispatch(new DispatchAction('PLAY_SONG', { id: song.get('id') }))
           }
         >
-          <Music20 className="mr1" />
-          {song.get('songTitle')}
+          <Music20 style={{
+            width: '1rem',
+            height: '1rem'
+          }}
+            className="mr1" />
+          <ul style={{
+            listStyle: 'none',
+            marginLeft: '0.5rem',
+            padding: '0',
+            width: '90%'
+          }}>
+            <li style={{
+              fontWeight: 'bold'
+            }}>Song: {song.get('songTitle')}</li>
+            <li>Artist: {song.get('artist')}</li>
+            <li>Album: {song.get('album')}</li>
+          </ul>
         </div>
       ))}
     </Section>
@@ -126,7 +141,7 @@ export function SideNav({ state, dispatch }: SideNavProps): JSX.Element {
   return (
     <div className="absolute top-0 left-0 bottom-0 w5 z-1 shadow-1 bg-white flex flex-column">
       <div className="h3 fw7 f5 flex items-center pl3 bb b--light-gray">
-        Nameless App
+        Sussy Programmers
       </div>
       <div className="flex-auto">
         <Instruments state={state} dispatch={dispatch} />
