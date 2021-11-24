@@ -17,9 +17,7 @@ export interface InstrumentProps {
   synth: Tone.Synth;
   setSynth: (f: (oldSynth: Tone.Synth) => Tone.Synth) => void;
   guitarSample: Tone.Sampler;
-  setGuitarSample: (f: (oldSynth: Tone.Sampler) => Tone.Sampler) => void;
   drumsetSample: Tone.Sampler;
-  setDrumsetSample: (f: (oldSynth: Tone.Sampler) => Tone.Sampler) => void;
   xylophoneSample: Tone.Sampler;
 }
 
@@ -80,7 +78,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
     }).toDestination(),
   );
 
-  const [drumsetSample, setDrumsetSample] = useState(
+  const [drumsetSample] = useState(
     new Tone.Sampler({
       urls: {
         A1: "snare-drum.mp3",
@@ -93,6 +91,8 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
         A2: "ride-cymbal.mp3",
       },
       baseUrl: "./assets/samples/drumset/"
+    }).toDestination(),
+  );
 
   const [xylophoneSample] = useState(
     new Tone.Sampler({
@@ -140,7 +140,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       };
     }
 
-    if (notes && guitarSample && drumsetSample)  {
+    if (notes && guitarSample && drumsetSample) {
       let eachNote = notes.split(' ');
       let noteObjs = eachNote.map((note: string, idx: number) => ({
         idx,
@@ -190,8 +190,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
     }
 
     return () => { };
-  }, [notes, synth, guitarSample, drumsetSample, dispatch]);
-  }, [notes, synth, guitarSample, xylophoneSample, dispatch]);
+  }, [notes, synth, guitarSample, drumsetSample, xylophoneSample, dispatch]);
 
 
   return (
@@ -208,9 +207,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
           synth={synth}
           setSynth={setSynth}
           guitarSample={guitarSample}
-          setGuitarSample={setGuitarSample}
           drumsetSample={drumsetSample}
-          setDrumsetSample={setDrumsetSample}
           xylophoneSample={xylophoneSample}
         />
       </div>
