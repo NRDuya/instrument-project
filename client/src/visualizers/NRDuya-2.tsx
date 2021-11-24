@@ -23,25 +23,12 @@ export const NRDuya = new Visualizer(
     p5.ellipse( 0, 0, radius );
 
     let values = analyzer.getValue();
-    let up = 0;
-    let down = values.length;
-    while(up < values.length){
-      p5.fill(up*3,255,255);
-      const upAmp = values[up] as number;
-      const downAmp = values[down] as number;
-      const uY = height + upAmp * height;
-      const dY = height + downAmp * height;
-
+    for(let i = 0; i < values.length; i++){
+      const amp = values[i] as number;
+      const spin = height + amp * height;
       p5.rotate( p5.TWO_PI / values.length );
-      // p5.rect(radius / 2, uY / 8, space_between_lines, height - uY);
-      // p5.rect(radius, dY / 4, space_between_lines, height - dY);
       p5.stroke( 255, 0, 0 );
-      p5.line( 10, radius, 0, height - uY );
-    
-      p5.stroke( 0 , 0, 255 );
-      p5.line( -10, radius/2, 0, height - dY ); 
-      down--;
-      up++;
+      p5.line( 10, radius, 100, height - spin );
     }
   },
 );
