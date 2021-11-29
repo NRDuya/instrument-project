@@ -35,14 +35,14 @@ export function XylophoneKey({
   
 function Xylophone({ xylophoneSample }: InstrumentProps): JSX.Element {
     const keys = List([
-        { note: 'C1', idx: 0 },
-        { note: 'D1', idx: 1 },
-        { note: 'E1', idx: 2 },
-        { note: 'F1', idx: 3 },
-        { note: 'G1', idx: 4 },
-        { note: 'A1', idx: 5 },
-        { note: 'B1', idx: 6 },
-        { note: 'C2', idx: 7 },
+        { note: 'C4', idx: 0 },
+        { note: 'D4', idx: 1 },
+        { note: 'E4', idx: 2 },
+        { note: 'F4', idx: 3 },
+        { note: 'G4', idx: 4 },
+        { note: 'A4', idx: 5 },
+        { note: 'B4', idx: 6 },
+        { note: 'C5', idx: 7 },
       ]);
 
     return (

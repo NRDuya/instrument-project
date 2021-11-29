@@ -6,16 +6,12 @@ import * as Tone from 'tone';
 import { Visualizer } from '../Visualizers';
 
 export const NRDuya = new Visualizer(
-  'NRDuya',
+  'Weird Fan',
   (p5: P5, analyzer: Tone.Analyser) => {
     const width = window.innerWidth;
     const height = window.innerHeight / 2;
-    const space_between_lines = (width / 2) / 128;
     const radius = width / 10;
-
     p5.background(0, 0, 0, 255);
-
-
 
     p5.translate( width / 2.5, height / 2 );
  

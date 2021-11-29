@@ -97,14 +97,13 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
   const [xylophoneSample] = useState(
     new Tone.Sampler({
       urls: {
-        A1: "A1.mp3",
-        B1: "B1.mp3",
-        C1: "C1.mp3",
-        C2: "C2.mp3",
-        D1: "D1.mp3",
-        E1: "E1.mp3",
-        F1: "F1.mp3",
-        G1: "G1.mp3",
+        A4: "A4.mp3",
+        B4: "B4.mp3",
+        C4: "C4.mp3",
+        D4: "D4.mp3",
+        E4: "E4.mp3",
+        F4: "F4.mp3",
+        G4: "G4.mp3",
       },
       baseUrl: "./assets/samples/xylophone/",
       onload: () => {
