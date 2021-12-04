@@ -118,7 +118,6 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       urls: {
         A3: "A3.mp3",
         G3: "G3.mp3",
-
         A4: "A4.mp3",//
         // B4: "B4.mp3",
         C4: "C4.mp3",//
@@ -134,7 +133,6 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
         E5: "E5.mp3",//
         // F5: "F5.mp3",
         // G5: "G5.mp3",
-
         // C6: "C6.mp3",
         // D6: "D6.mp3",
         // E6: "E6.mp3",
@@ -208,7 +206,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
 
       new Tone.Part((time, value) => {
         // the value is an object which contains both the note and the velocity
-        xylophoneSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
+        kalimbaSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
         if (value.idx === eachNote.length - 1) {
           dispatch(new DispatchAction('STOP_SONG'));
         }
@@ -219,6 +217,10 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       return () => {
         Tone.Transport.cancel();
       };
+    }
+
+    else if (instrument.name === 'Kalimba' && notes && drumsetSample) {
+
     }
 
     else if (notes && synth) {

@@ -25,17 +25,9 @@ export const TwoDimensionalVisualizer = new Visualizer(
 
     const values = analyzer.getValue();
     p5.beginShape();
-    // for (let i = 0; i < values.length; i++) {
-    //   const amplitude = values[i] as number;
-    //   const x = p5.map(i, 0, values.length - 1, 0, width);
-    //   const y = height / 2 + amplitude * height;
-    //   // Place vertex
-    //   p5.vertex(x, y);
-    // }
     for (let i = 0; i <= 180; i++) {
       const amplitude = values[i] as number;
 
-      // const index = p5.map(i, 0, 180, 0, values.length -1);
       const r = p5.map(amplitude, -1, 1, 50, 250);
       const x = r * Math.sin(i);
       const y = r * Math.cos(i);

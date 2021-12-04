@@ -1,24 +1,15 @@
 // 3rd party library imports
 import * as Tone from 'tone';
-// import classNames from 'classnames';
-import { List, Range } from 'immutable';
-// import React from 'react';
+import { List } from 'immutable';
 
 // Project imports
 import { Instrument, InstrumentProps } from '../Instruments';
 import '../css/kalimba.css';
 
-/** ------------------------------------------------------------------------ **
- * Contains implementation of components for Piano.
- ** ------------------------------------------------------------------------ */
-
 interface KalimbaKeyProps {
-  note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
+  note: string;
   duration?: string;
-  // synth?: Tone.Synth; // Contains library code for making sound
-  // minor?: boolean; // True if minor key, false if major key
-  // octave: number;
-  index: number; // octave + index together give a location for the piano key
+  index: number;
   kalimbaSample: Tone.Sampler;
 }
 
@@ -27,24 +18,11 @@ export function KalimbaKey({
   index,
   kalimbaSample,
 }: KalimbaKeyProps): JSX.Element {
-  /**
-   * This React component corresponds to either a major or minor key in the piano.
-   * See `PianoKeyWithoutJSX` for the React component without JSX.
-   */
   return (
-    // Observations:
-    // 1. The JSX refers to the HTML-looking syntax within TypeScript.
-    // 2. The JSX will be **transpiled** into the corresponding `React.createElement` library call.
-    // 3. The curly braces `{` and `}` should remind you of string interpolation.
     <div
-      onMouseDown={() => kalimbaSample?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
-      onMouseUp={() => kalimbaSample?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
+      onMouseDown={() => kalimbaSample?.triggerAttack(`${note}`)}
+      onMouseUp={() => kalimbaSample?.triggerRelease('+0.25')}
       className="kalimba-tab "
-      style={{
-        // CSS
-        // right: `${index * 2}rem`,
-        // width: `${250 - (15 * index)}px`,
-      }}
     >
       {note}
       {/* <div className="kalimba-container">

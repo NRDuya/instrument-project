@@ -1,5 +1,4 @@
 // 3rd party library imports
-import * as Tone from 'tone';
 import { List } from 'immutable';
 
 // project imports

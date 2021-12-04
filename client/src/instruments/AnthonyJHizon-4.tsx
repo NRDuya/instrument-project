@@ -1,6 +1,5 @@
 // 3rd party library imports
 
-
 import '../css/drumset.css';
 // project imports
 import { Instrument, InstrumentProps } from '../Instruments';

@@ -7,10 +7,10 @@ import { Instrument, InstrumentProps } from '../Instruments';
 import '../css/xylophone.css';
 
 interface XylophoneKeyProps {
-    note: string; // C, Db, D, Eb, E, F, Gb, G, Ab, A, Bb, B
+    note: string; 
     duration?: string;
     xylophoneSample: Tone.Sampler; // Contains library code for making sound
-    index: number; // octave + index together give a location for the piano key
+    index: number;
 }
   
 export function XylophoneKey({
@@ -20,8 +20,8 @@ export function XylophoneKey({
 }: XylophoneKeyProps): JSX.Element {
     return (
       <div
-        onMouseDown={() => xylophoneSample?.triggerAttack(`${note}`)} // Question: what is `onMouseDown`?
-        onMouseUp={() => xylophoneSample?.triggerRelease('+0.25')} // Question: what is `onMouseUp`?
+        onMouseDown={() => xylophoneSample?.triggerAttack(`${note}`)}
+        onMouseUp={() => xylophoneSample?.triggerRelease('+0.25')}
         className="xylophoneKey"
         style={{
             left: `${index * 2}rem`,
