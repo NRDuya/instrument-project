@@ -19,6 +19,7 @@ export interface InstrumentProps {
   guitarSample: Tone.Sampler;
   drumsetSample: Tone.Sampler;
   xylophoneSample: Tone.Sampler;
+  kalimbaSample: Tone.Sampler;
 }
 
 export class Instrument {
@@ -112,6 +113,39 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
     }).toDestination(),
   );
 
+  const [kalimbaSample] = useState(
+    new Tone.Sampler({
+      urls: {
+        A3: "A3.mp3",
+        G3: "G3.mp3",
+
+        A4: "A4.mp3",//
+        // B4: "B4.mp3",
+        C4: "C4.mp3",//
+        D4: "D4.mp3",//
+        E4: "E4.mp3",//
+        // F4: "F4.mp3",
+        G4: "G4.mp3",//
+//A3 G3
+        // A5: "A5.mp3",
+        // B5: "B5.mp3",
+        C5: "C5.mp3",//
+        D5: "D5.mp3",//
+        E5: "E5.mp3",//
+        // F5: "F5.mp3",
+        // G5: "G5.mp3",
+
+        // C6: "C6.mp3",
+        // D6: "D6.mp3",
+        // E6: "E6.mp3",
+      },
+      baseUrl: "./assets/samples/kalimba/",
+      onload: () => {
+        console.log("Kalimba samples loaded!");
+      }
+    }).toDestination(),
+  );
+
   const notes = state.get('notes');
 
   useEffect(() => {
@@ -163,6 +197,30 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       };
     }
 
+    else if (instrument.name === 'Kalimba' && notes && kalimbaSample) {
+      let eachNote = notes.split(' ');
+      let noteObjs = eachNote.map((note: string, idx: number) => ({
+        idx,
+        time: `+${idx / 4}`,
+        note,
+        velocity: 1,
+      }));
+
+      new Tone.Part((time, value) => {
+        // the value is an object which contains both the note and the velocity
+        xylophoneSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
+        if (value.idx === eachNote.length - 1) {
+          dispatch(new DispatchAction('STOP_SONG'));
+        }
+      }, noteObjs).start(0);
+
+      Tone.Transport.start();
+
+      return () => {
+        Tone.Transport.cancel();
+      };
+    }
+
     else if (notes && synth) {
       let eachNote = notes.split(' ');
       let noteObjs = eachNote.map((note: string, idx: number) => ({
@@ -187,7 +245,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       };
     }
     return () => { };
-  }, [notes, synth, guitarSample, drumsetSample, xylophoneSample, dispatch, instrument.name]);
+  }, [notes, synth, guitarSample, drumsetSample, xylophoneSample, kalimbaSample, dispatch, instrument.name]);
 
 
   return (
@@ -206,6 +264,7 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
           guitarSample={guitarSample}
           drumsetSample={drumsetSample}
           xylophoneSample={xylophoneSample}
+          kalimbaSample={kalimbaSample}
         />
       </div>
     </div>
