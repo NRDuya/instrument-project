@@ -219,8 +219,8 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
       };
     }
 
-    else if (instrument.name === 'Kalimba' && notes && drumsetSample) {
-
+    else if (instrument.name === 'Drumset' && notes && drumsetSample) {
+      dispatch(new DispatchAction('STOP_SONG'));
     }
 
     else if (notes && synth) {
