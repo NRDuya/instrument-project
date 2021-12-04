@@ -1,0 +1,77 @@
+.kalimba-container{ 
+    display: flex;
+    /* background-color: beige; */
+    /* margin: 10px; */
+    justify-content: center;
+    position: relative;
+    /* left: 0vmin; */
+    left: 35vmax;
+    height: 350px;
+    width: 500px;
+}
+
+.kalimba-circle {
+    border-radius: 50%;
+    background-color: black;
+    /* justify-content: center; */
+    position: absolute;
+    top: 200px;
+    /* left: 0vmin; */
+    left: 42.75vmax;
+    height: 200px;
+    width: 200px;
+}
+
+.kalimba-tab {
+    background-color: grey;
+    margin: 10px;
+    border: 1px solid grey;
+    width: 30px;
+    text-align: center;
+    height: 300px;
+    border-radius: 15px;
+}
+
+.kalimba-tab:nth-child(1){
+    height: 250px;
+}
+
+.kalimba-tab:nth-child(2){
+    height: 260px;
+}
+
+.kalimba-tab:nth-child(3){
+    height: 270px;
+}
+
+.kalimba-tab:nth-child(4){
+    height: 280px;
+}
+
+.kalimba-tab:nth-child(5){
+    height: 290px;
+}
+
+.kalimba-tab:nth-child(6){
+    height: 300px;
+}
+
+.kalimba-tab:nth-child(7){
+    height: 290px;
+}
+
+.kalimba-tab:nth-child(8){
+    height: 280px;
+}
+
+.kalimba-tab:nth-child(9){
+    height: 270px;
+}
+
+.kalimba-tab:nth-child(10){
+    height: 260px;
+}
+
+.kalimba-tab:hover {
+    cursor: pointer;
+}
