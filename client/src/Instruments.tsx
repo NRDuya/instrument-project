@@ -82,16 +82,19 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
   const [drumsetSample] = useState(
     new Tone.Sampler({
       urls: {
-        A1: "snare-drum.mp3",
-        B1: "tom-drum-1.mp3",
-        C1: "tom-drum-2.mp3",
-        D1: "tom-drum-3.mp3",
-        E1: "kick-drum.mp3",
-        F1: "hi-hat-cymbal.mp3",
-        G1: "crash-cymbal.mp3",
-        A2: "ride-cymbal.mp3",
+        A4: "snare-drum.mp3",
+        B4: "tom-drum-1.mp3",
+        C4: "tom-drum-2.mp3",
+        D4: "tom-drum-3.mp3",
+        E4: "kick-drum.mp3",
+        F4: "hi-hat-cymbal.mp3",
+        G4: "crash-cymbal.mp3",
+        A1: "ride-cymbal.mp3",
       },
-      baseUrl: "./assets/samples/drumset/"
+      baseUrl: "./assets/samples/drumset/",
+      onload: () => {
+        console.log("Drumset samples loaded!");
+      }
     }).toDestination(),
   );
 
@@ -220,7 +223,27 @@ export const InstrumentContainer: React.FC<InstrumentContainerProps> = ({
     }
 
     else if (instrument.name === 'Drumset' && notes && drumsetSample) {
-      dispatch(new DispatchAction('STOP_SONG'));
+      let eachNote = notes.split(' ');
+      let noteObjs = eachNote.map((note: string, idx: number) => ({
+        idx,
+        time: `+${idx / 4}`,
+        note,
+        velocity: 1,
+      }));
+
+      new Tone.Part((time, value) => {
+        // the value is an object which contains both the note and the velocity
+        drumsetSample.triggerAttackRelease(value.note, '4n', time, value.velocity);
+        if (value.idx === eachNote.length - 1) {
+          dispatch(new DispatchAction('STOP_SONG'));
+        }
+      }, noteObjs).start(0);
+
+      Tone.Transport.start();
+
+      return () => {
+        Tone.Transport.cancel();
+      };
     }
 
     else if (notes && synth) {
